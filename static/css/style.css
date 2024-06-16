@@ -1,0 +1,374 @@
+body {
+  margin: 0;
+  /* text-decoration: none; */
+}
+
+/* Bagian atas Index */
+.ml12 {
+  font-family: "Dancing Script", cursive;
+  font-size: 30px;
+  margin-top: 2rem;
+  text-decoration: none;
+}
+.ml11 {
+  font-weight: 600;
+  font-size: 3.5em;
+}
+
+.ml11 .text-wrapper {
+  position: relative;
+  display: inline-block;
+  padding-top: 0.1em;
+  padding-right: 0.05em;
+  padding-bottom: 0.15em;
+}
+
+.ml11 .line {
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 3px;
+  background-color: rgb(255, 8, 8);
+  transform-origin: 0 100%;
+}
+
+.ml11 .line1 {
+  top: 0;
+  left: 0;
+}
+
+.ml11 .letter {
+  display: inline-block;
+  line-height: 1em;
+}
+
+#index .box0:hover {
+  --p: 101%;
+  --t: 0.3s;
+  color: #fff;
+}
+#index .box0 {
+  --c: no-repeat linear-gradient(#571ef3 0 0);
+  background: var(--c) calc(-101% + var(--p, 0%)) 100%, var(--c) calc(201% - var(--p, 0%)) 0;
+  background-color: white;
+  background-size: 50.1% var(--p, 0.08em);
+  transition: 0.3s var(--t, 0s), background-position 0.3s calc(0.3s - var(--t, 0s));
+}
+
+#index .box1 {
+  background: linear-gradient(#571ef3 0 0) left / var(--p, 0) no-repeat;
+  transition: 0.4s, background-position 0s;
+  background-color: white;
+}
+#index .box1:hover {
+  --p: 100%;
+  background-position: right;
+  color: white;
+}
+
+#index .box2 {
+  background: linear-gradient(#571ef3 0 0) no-repeat calc(200% - var(--i, 0) * 100%) 100% / 200% calc(100% * var(--i, 0) + 0.08em);
+  transition: 0.3s calc(var(--i, 0) * 0.3s), background-position 0.3s calc(0.3s - calc(var(--i, 0) * 0.3s));
+  background-color: white;
+}
+#index .box2:hover {
+  --i: 1;
+  color: #fff;
+}
+#index .box3:hover {
+  --p: 101%;
+  --t: 0.3s;
+  color: #fff;
+}
+#index .box3 {
+  --c: no-repeat linear-gradient(#571ef3 0 0);
+  background: var(--c) calc(-101% + var(--p, 0%)) 100%, var(--c) calc(201% - var(--p, 0%)) 0;
+  background-color: white;
+  background-size: 50.1% var(--p, 0.08em);
+  transition: 0.3s var(--t, 0s), background-position 0.3s calc(0.3s - var(--t, 0s));
+}
+
+.containera {
+  height: auto;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-gap: 20px;
+  padding: 10px;
+  color: #000;
+  box-sizing: border-box;
+}
+.containera .box {
+  position: relative;
+  background: rgb(246, 246, 253);
+  padding: 10px 25px 10px;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 5px 8px;
+  background-color: white;
+}
+
+.whatsapp-logo {
+  
+  bottom: 20px;
+  z-index: 9999;
+}
+
+/* .jumbotron {
+  height:auto;
+} */
+/* body.bg-login{
+  /* height: fit-content;
+  width: fit-content; */
+
+/* Bagian atas Index */
+
+/* awal login */
+.bg-login {
+  background-color: #d87b01;
+  height: fit-content;
+  align-items: center;
+}
+.login-page {
+  width: 100%;
+  display: flex;
+  height: fit-content;
+  padding: 3% 0;
+  justify-content: center;
+  margin: auto;
+}
+.form {
+  position: relative;
+  border-radius: 16px;
+  z-index: 1;
+  background: #ffffff;
+  max-width: 360px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: "Roboto", sans-serif;
+  outline: 10;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+.form button {
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #e48508;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
+  cursor: pointer;
+}
+.form button:hover,
+.form button:active,
+.form button:focus {
+  background: #f58b00;
+}
+
+button {
+  border-radius: 16px;
+}
+
+/* akhir login */
+
+/* awal biodata */
+
+@media (min-width: 1025px) {
+  .h-custom {
+    height: 100vh !important;
+  }
+}
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+  font-size: 1rem;
+  line-height: 2.15;
+  padding-left: 0.75em;
+  padding-right: 0.75em;
+}
+.card-registration .select-arrow {
+  top: 13px;
+}
+
+.gradient-custom-2 {
+  /* fallback for old browsers */
+  background: #0062ff;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, rgba(161, 196, 253, 1), rgba(194, 233, 251, 1));
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, rgba(161, 196, 253, 1), rgba(194, 233, 251, 1));
+}
+
+.bg-indigo {
+  background-color: #4835d4;
+}
+@media (min-width: 992px) {
+  .card-registration-2 .bg-indigo {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+}
+@media (max-width: 991px) {
+  .card-registration-2 .bg-indigo {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+/* akhir biodata */
+
+/* awal daftar */
+#daftar {
+  background-image: url(../img/background.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-size: auto;
+  height: 100%;
+  width: 100%;
+}
+
+.boking {
+  background-color: rgb(129, 86, 255);
+}
+
+/* Informasi index */
+.body {
+  margin: 0;
+  height: 100%;
+  padding: 0;
+  display: flex;
+  background-color: rgb(129, 86, 255);
+  justify-content: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+}
+.about-section {
+  padding: 50px;
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+.about-section h1 {
+  padding-bottom: 2rem;
+}
+.containera {
+  width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-gap: 20px;
+  padding: 10px;
+  color: #000;
+  box-sizing: border-box;
+}
+.containera .box {
+  position: relative;
+  background: rgb(246, 246, 253);
+  padding: 10px 25px 10px;
+  text-align: center;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 5px 8px;
+  background-color: white;
+}
+.containera-info {
+  max-width: 50em;
+  padding: 1em 3em 2em 3em;
+  margin: 0em auto;
+  color: #000;
+  background-color: rgb(240, 240, 255);
+  border-radius: 14px;
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.2);
+}
+#unggulan .box:hover {
+  transform: scale(1.1);
+  color: #2300ad;
+  /* background-color: rgb(212, 0, 255); */
+}
+#pemesanan:hover {
+  transform: scale(1.2);
+}
+
+.button {
+  display: inline-block;
+  padding: 25px 35px;
+  font-size: 24px;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  outline: none;
+  color: #ffffff;
+  background-color: #5f31df;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px rgb(255, 255, 255);
+}
+
+.button:active {
+  background-color: rgb(129, 86, 255);
+  box-shadow: 0 5px rgb(255, 255, 255);
+  transform: translateY(4px);
+}
+section.bg-dark {
+  --bs-bg-opacity: 0.7;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+}
+.col .btn-dark{
+  --bs-bg-opacity: 0.7;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+}
+table.bg-dark {
+  --bs-bg-opacity: 0.7;
+  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+}
+/* Akhir Informasi index */
+
+/* #pesan{
+  align-items: center;
+  margin-left: 50%;
+  margin-right: 50%;
+} */
+/* akhir daftar */
+
+
+/* coba */
+.gradient-custom-3 {
+  /* fallback for old browsers */
+  background: #84fab0;
+  
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
+  
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
+  }
+  .gradient-custom-4 {
+  /* fallback for old browsers */
+  background: #84fab0;
+  
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
+  
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))
+  }
+/* coba */
