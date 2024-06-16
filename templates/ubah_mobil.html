@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ubah Mobil</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+      .container {
+        max-width: 400px;
+        margin: 0 auto;
+        margin-top: 20px;
+      }
+      label {
+        margin-top: 10px;
+      }
+      button[type="submit"] {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Ubah Mobil</h1>
+
+      <form action="/ubah_mobil/{{ mobil[0] }}" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="plat">Plat Mobil:</label>
+          <input type="text" class="form-control" id="plat" name="plat" value="{{ mobil[1] }}" required />
+        </div>
+        <div class="form-group">
+          <label for="nama">Nama Mobil:</label>
+          <input type="text" class="form-control" id="nama" name="nama" value="{{ mobil[2] }}" required />
+        </div>
+        <div class="form-group">
+          <label for="tipe">Tipe Mobil:</label>
+          <select class="form-control" id="tipe" name="tipe" required>
+            <option value="Sedan">Sedan</option>
+            <option value="Hatchback">Hatchback</option>
+            <option value="SUV">SUV</option>
+            <option value="Sport">Sport</option>
+            <option value="Minivan">Minivan</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="tahun">Tahun Pembuatan:</label>
+          <input type="text" class="form-control" id="tahun" name="tahun" value="{{ mobil[4] }}" required />
+        </div>
+
+        <div class="form-group">
+          <label for="harga">Harga Sewa Per Hari:</label>
+          <input type="text" class="form-control" id="harga" name="harga" value="{{ mobil[5] }}" required />
+        </div>
+        <div class="form-group">
+          <label for="warna">Warna:</label>
+          <input type="text" class="form-control" id="warna" name="warna" value="{{ mobil[8] }}" required />
+        </div>
+
+        <div class="form-group">
+          <label for="ketersediaan">Status Ketersediaan:</label>
+          <select class="form-control" id="ketersediaan" name="ketersediaan" required>
+            <option value="1" {% if mobil[6] %}selected{% endif %}>Tersedia</option>
+            <option value="0" {% if not mobil[6] %}selected{% endif %}>Tidak Tersedia</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="gambar">Gambar:</label>
+          <input type="file" class="form-control-file" id="gambar" name="gambar" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+      </form>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

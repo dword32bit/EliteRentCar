@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo.png') }}" />
+    <title>Reset</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" />
+  </head>
+  <body id="daftar">
+    <div class="container" id="daftar">
+      <div class="row justify-content-center">
+        <div class="col-md-4 text-center mt-3 mb-3">
+          <h4>Reset Password</h4>
+          <br />
+          <br />
+          <center>
+            <a href="#"><img src="/static/img/logo.png" alt="logo" style="width: 40%" /></a>
+          </center>
+          <br />
+          <!-- Notifikasi -->
+          {% if error %}
+          <div class="alert alert-danger" role="alert">{{ error }}</div>
+          {% endif %} {% if success %}
+          <div class="alert alert-success" role="alert">{{ success }}</div>
+          {% endif %}
+          <!-- Akhir Notifikasi -->
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <form action="{{ url_for('reset') }}" method="post">
+          <div class="mb-3">
+            <label for="Username" class="form-label">Username</label>
+            <input type="text" class="form-control" placeholder="Masukkan Username" id="username" name="username" required autofocus autocomplete="off"/>
+          </div>
+          <div class="mb-3">
+            <label for="NIK" class="form-label">NIK</label>
+            <input type="number" class="form-control" placeholder="Nomor Induk Kependudukan" id="nik" name="nik" autocomplete="off" required />
+          </div>
+          <div class="mb-3">
+            <label for="taghir" class="form-label">Tanggal Lahir</label>
+            <input type="date" class="form-control" id="taghir" name="taghir" autocomplete="off" required />
+          </div>
+          <div class="mb-3">
+            <label for="new_pws" class="form-label">New Password</label>
+            <div class="input-group">
+              <input type="password" class="form-control" placeholder="Masukkan Password Baru" id="new_pws" name="new_pws" autocomplete="off" required />
+              <span id="mybutton" class="input-group-text" onclick="change()">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                  <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                </svg>
+              </span>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Daftar</button>
+        </form>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/main.js')}}"></script>
+  </body>
+</html>

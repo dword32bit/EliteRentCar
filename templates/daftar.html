@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo.png') }}" />
+    <title>Daftar</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" />
+  </head>
+  <body id="daftar">
+    <div class="container" id="daftar">
+      <div class="row justify-content-center">
+        <div class="col-md-4 text-center mt-3 mb-3">
+          <h4>Form Regristasi</h4>
+          <br />
+          <br />
+          <center>
+            <a href="#"><img src="/static/img/logo.png" alt="logo" style="width: 30%" /></a>
+          </center>
+          <br />
+          <!-- Notifikasi -->
+          {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+          <!-- alert -->
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% endfor %} {% endif %} {% endwith %}
+          <!-- Akhir Notifikasi -->
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <form action="{{ url_for('pendaftaran') }}" method="post">
+          <div class="mb-3">
+            <label for="nik" class="form-label">NIK</label>
+            <input type="number" class="form-control" id="nik" name="nik" {% if 'nik' in session %} value="{{ session['nik'] }}"aria-readonly="{% endif %} "/>
+          </div>
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" placeholder="username/email" name="username" autocomplete="off" autofocus required/>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" placeholder="Masukkan email" name="email" autocomplete="off" required />
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-group">
+              <input type="password" class="form-control" id="password" placeholder="Masukkan Password" name="password" autocomplete="off" required />
+              <span id="mybutton" class="input-group-text" onclick="change()">
+                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-eye-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
+                  <path fill-rule="evenodd" d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                </svg>
+              </span>
+            </div>
+          </div>
+          <button class="btn btn-primary" type="submit">Daftar</button>
+        </form>
+        <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="{{ url_for('login')}}"
+          class="fw-bold text-body"><u>Login here</u></a></p>
+      </div>
+    </div>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.js')}}"></script>
+   <script src="{{ url_for('static', filename='js/main.js')}}"></script>
+  </body>
+</html>

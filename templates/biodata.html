@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Biodata</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" />
+  </head>
+  <body>
+    <section class="h-100 h-custom gradient-custom-2">
+      <form action="{{ url_for('tempat')}}" method="POST" onsubmit="return validateForm();">
+        <div class="container py-5 h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <!-- Notifikasi -->
+          {% with messages = get_flashed_messages(with_categories=true) %} {% if messages %} {% for category, message in messages %}
+          <!-- alert -->
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            <strong>{{ message }}</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          {% endfor %} {% endif %} {% endwith %}
+          <!-- Akhir Notifikasi -->
+            <div class="col-12">
+              <div class="card card-registration card-registration-2" style="border-radius: 15px">
+                <div class="card-body p-0">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <div class="p-5">
+                        <h3 class="fw-normal mb-5" style="color: #4835d4">General Infomation</h3>
+                        <div class="mb-4 pb-2">
+                          <div class="form-outline">
+                            <label class="form-label" for="form3Examplev4">NIK</label>
+                            <input type="number" id="form3Examplev4" name="nik" class="form-control form-control-lg" placeholder="Nomor Induk Kependudukan"  autofocus required />
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-outline">
+                              <label class="form-label" for="form3Examplev2">First name</label>
+                              <input type="text" id="form3Examplev2" class="form-control form-control-lg" placeholder="First name" name="awal" required/>
+                              <span class="error" id="error-nama"></span><br />
+                            </div>
+                          </div>
+                          <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-outline">
+                              <label class="form-label" for="form3Examplev3">Last name</label>
+                              <input type="text" id="form3Examplev3" name="akhir" class="form-control form-control-lg" placeholder="Last name" />
+                              <span class="error" id="error-namaku"></span><br />
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-outline">
+                              <label class="form-label" for="form3Examplev3">Tempat Lahir</label>
+                              <input type="text" id="form3Examplev3" class="form-control form-control-lg" placeholder="Tempat lahir" name="temphir"/>
+                            </div>
+                          </div>
+                          <div class="col-md-6 mb-4 pb-2">
+                            <div class="form-outline">
+                              <label class="form-label" for="form3Examplev3">Tanggal Lahir</label>
+                              <input type="date" id="form3Examplev3" name="taghir" class="form-control form-control-lg" placeholder="Last name" />
+                            </div>
+                          </div>
+                          <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="{{ url_for('login')}}"
+                            class="fw-bold text-body"><u>Login here</u></a></p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-6 bg-indigo text-white">
+                      <div class="p-5">
+                        <h3 class="fw-normal mb-5">Contact Details</h3>
+
+                        <div class="mb-4 pb-2">
+                          <div class="form-outline form-white">
+                            <label class="form-label" for="form3Examplea2">Dusun</label>
+                            <input type="text" id="form3Examplea2" name="dusun" class="form-control form-control-lg" />
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-6 mb-4 pb-2">
+                            <div class="form-outline form-white">
+                              <div class="form-group">
+                                <div class="select">
+                                  <label>Provinsi:</label><br />
+                                  <select name="provinsi" id="provinsi" class="form-select form-select-lg">
+                                    <option>Pilih</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-6 mb-4 pb-2">
+                            <div class="form-outline form-white">
+                              <div class="form-group">
+                                <label>Kab/Kota:</label><br />
+                                <select name="kota" id="kota" class="form-select form-select-lg">
+                                  <option>Pilih</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-6 mb-4 pb-2">
+                            <div class="form-outline form-white">
+                              <div class="form-group">
+                                <div class="select">
+                                  <label>kecamatan:</label><br />
+                                  <select name="kecamatan" id="kecamatan" class="form-select form-select-lg">
+                                    <option>Pilih</option>
+                                  </select>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-6 mb-4 pb-2">
+                            <div class="form-outline form-white">
+                              <div class="form-group">
+                                <label>Kelurahan:</label><br />
+                                <select name="kelurahan" id="kelurahan" class="form-select form-select-lg">
+                                  <option>Pilih</option>
+                                </select>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Daftar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </section>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/wilayah.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/wilayah1.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/main.js')}}"></script>
+  </body>
+</html>

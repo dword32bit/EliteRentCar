@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pengguna Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <style>
+      body {
+        background: linear-gradient(to right, #05913b, #036779);
+        padding: 0;
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.05), 0 0 0 10px rgba(0, 0, 0, 0.05);
+      }
+      .css-serial {
+        counter-reset: serial-number; /* Atur penomoran ke 0 */
+      }
+      .css-serial td:first-child:before {
+        counter-increment: serial-number; /* Kenaikan penomoran */
+        content: counter(serial-number); /* Tampilan counter */
+      }
+      .demo {
+        font-family: "Noto Sans", sans-serif;
+      }
+      body .panel {
+        background: linear-gradient(to right, #05913b, #036779);
+        padding: 0;
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.05), 0 0 0 10px rgba(0, 0, 0, 0.05);
+      }
+      .panel .panel-heading {
+        padding: 20px 15px;
+        border-radius: 10px 10px 0 0;
+        margin: 0;
+      }
+      .panel .panel-heading .title {
+        color: #fff;
+        font-size: 28px;
+        font-weight: 500;
+        text-transform: capitalize;
+        line-height: 40px;
+        margin: 0;
+      }
+      .panel .panel-heading .btn {
+        color: rgba(255, 255, 255, 0.5);
+        background: transparent;
+        font-size: 16px;
+        text-transform: capitalize;
+        border: 2px solid #fff;
+        border-radius: 50px;
+        transition: all 0.3s ease 0s;
+      }
+      .panel .panel-heading .btn:hover {
+        color: #fff;
+        text-shadow: 3px 3px rgba(255, 255, 255, 0.2);
+      }
+      .panel .panel-heading .form-control {
+        color: #fff;
+        background-color: transparent;
+        width: 35%;
+        height: 40px;
+        border: 2px solid #fff;
+        border-radius: 20px;
+        display: inline-block;
+        transition: all 0.3s ease 0s;
+      }
+      .panel .panel-heading .form-control:focus {
+        background-color: rgba(255, 255, 255, 0.2);
+        box-shadow: none;
+        outline: none;
+      }
+      .panel .panel-heading .form-control::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 15px;
+        font-weight: 500;
+      }
+      .panel .panel-body {
+        padding: 0;
+      }
+      .panel .panel-body .table thead tr th {
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.2);
+        font-size: 16px;
+        font-weight: 500;
+        text-transform: uppercase;
+        padding: 12px;
+        border: none;
+      }
+      .panel .panel-body .table tbody tr td {
+        color: #fff;
+        font-size: 15px;
+        padding: 10px 12px;
+        vertical-align: middle;
+        border: none;
+      }
+      .panel .panel-body .table tbody tr:nth-child(even) {
+        background-color: rgba(255, 255, 255, 0.05);
+      }
+      .panel .panel-body .table tbody .action-list {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+      .panel .panel-body .table tbody .action-list li {
+        display: inline-block;
+        margin: 0 5px;
+      }
+      .panel .panel-body .table tbody .action-list li a {
+        color: #fff;
+        font-size: 15px;
+        position: relative;
+        z-index: 1;
+        transition: all 0.3s ease 0s;
+      }
+      .panel .panel-body .table tbody .action-list li a:hover {
+        text-shadow: 3px 3px 0 rgba(255, 255, 255, 0.3);
+      }
+      .panel .panel-body .table tbody .action-list li a:before,
+      .panel .panel-body .table tbody .action-list li a:after {
+        content: attr(data-tip);
+        color: #fff;
+        background-color: #111;
+        font-size: 12px;
+        padding: 5px 7px;
+        border-radius: 4px;
+        text-transform: capitalize;
+        display: none;
+        transform: translateX(-50%);
+        position: absolute;
+        left: 50%;
+        top: -32px;
+        transition: all 0.3s ease 0s;
+      }
+      .panel .panel-body .table tbody .action-list li a:after {
+        content: "";
+        height: 15px;
+        width: 15px;
+        padding: 0;
+        border-radius: 0;
+        transform: translateX(-50%) rotate(45deg);
+        top: -18px;
+        z-index: -1;
+      }
+      .panel .panel-body .table tbody .action-list li a:hover:before,
+      .panel .panel-body .table tbody .action-list li a:hover:after {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row" style="padding-top: 40px; padding-bottom: 40px;">
+        <div class="col">
+          <div class="panel">
+            <div class="panel-heading">
+              <div class="row">
+                <div class="col col-sm-3 col-xs-12">
+                  <h4 class="title">Data Pengguna</h4>
+                </div>
+              </div>
+            </div>
+            <div class="panel-body table-responsive">
+              <table class="table css-serial">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Nama Awal</th>
+                    <th>Nama Akhir</th>
+                    <th>Alamat</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for pengguna in pengguna_list %}
+                  <tr>
+                    <td></td>
+                    <td>{{ pengguna[0] }}</td>
+                    <td>{{ pengguna[1] }}</td>
+                    <td>{{ pengguna[2] }}</td>
+                    <td>{{ pengguna[3] }}</td>
+                    <td>{{ pengguna[4] }}, {{ pengguna[5] }}, {{ pengguna[6] }}, {{ pengguna[7] }}, {{ pengguna[8] }}</td>
+                    <td style="display: flex;">
+                      <!--<a href="/ubah_pengguna/{{ pengguna[0] }}" style="text-decoration: none; cursor: pointer; color: white; margin-right: 10px; background-color: brown; padding: 8px 10px; border-radius: 12px;">Ubah</a>-->
+                      <form action="/hapus_pengguna/{{ pengguna[0] }}" method="POST" style="color: white; background-color: #ff0000; padding: 8px 10px; border-radius: 12px;">
+                        <button type="submit" style="text-decoration: none; background-color: transparent; border: none; cursor: pointer;">Hapus</button>
+                      </form>
+                    </td>
+                  </tr>
+                </tbody>
+                {% endfor %}
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

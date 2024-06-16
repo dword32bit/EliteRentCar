@@ -1,0 +1,109 @@
+{% extends "base.html" %} {% block title %} Car {% endblock %} {% block content %}
+<center><div class="jumbotron" style="background-color: rgb(129, 86, 255); color: aliceblue; padding-top: 30px;" >
+  <form action="/mobil" method="GET">
+    <label for="filter_tipe">Filter Tipe Mobil:</label>
+    <select id="filter_tipe" name="filter_tipe">
+      <option value="">Semua</option>
+      {% for tipe_mobil in tipe_mobil_list %}
+        <option value="{{ tipe_mobil[0] }}" {% if tipe_mobil[0] == filter_tipe %}selected{% endif %}>{{ tipe_mobil[0] }}</option>
+      {% endfor %}
+    </select>      
+    <label for="sort_harga">Urutkan Harga:</label>
+    <select id="sort_harga" name="sort_harga" >
+      <option value="">Tidak Urut</option>
+      <option value="asc">Harga Terendah</option>
+      <option value="desc">Harga Tertinggi</option>
+    </select>
+    <button type="submit" class="btn text-white" style="background-color: rgb(118, 22, 243)" >Filter & Urutkan</button>
+  </form>
+</div>
+</center>
+{% for mobil in mobil_list %}
+<div class="jumbotron" style="background-color: rgb(129, 86, 255); color: aliceblue; height: 100%; display: flex; margin-bottom: -10px; margin-top: -10px" >
+  <section class="container my-5 pb-5 bg-light text-black rounded-4 mobil-list {% if mobil[6] == 0 %}container my-5 pb-5 bg-dark text-white rounded-4 mobil-list{% endif %}">
+    <div class="row">
+      <div class="col" id="foto">
+        <center>
+          <h1 style="padding-bottom: 2%; padding-top: 2%">{{ mobil[2] }}</h1>
+        </center>
+        <hr />
+        <div class="container" style="padding-top: 2rem">
+          <div class="row">
+            <div class="col">
+              {% if mobil[7] %}
+              <img src="{{ url_for('static', filename='images/' + mobil[7]) }}" alt="Gambar Mobil" width="70%" height="70%" />
+              {% else %}
+              <span>Gambar tidak tersedia</span>
+              {% endif %}
+              <h6>Keterangan:</h6>
+              <table cellpadding="6" cellspacing="2" style="padding-left: 50px; margin-left: 0px">
+                <th>
+                  <tr>
+                    <th>
+                      <i class="bx bx-id-card"> {{ mobil[1] }} </i>
+                    </th>
+                    <th style="padding-left: 80px">
+                      <i class="icofont-car"> {{ mobil[3] }} </i>
+                    </th>
+                  </tr>
+                  <tr style="margin: left 50px">
+                    <th>
+                      <i class="icofont-calendar"> {{ mobil[4] }} </i>
+                    </th>
+                    <th style="padding-left: 80px">
+                      <i class="bx bxs-palette"> {{ mobil[8] }} </i>
+                    </th>
+                  </tr>
+                </th>
+              </table>
+            </div>
+            <div class="col-7" id="info">
+              <table>
+                <!--<center>
+                  <div id="termasuk" class="btn text-white rounded-3" style="background-color: rgb(118, 22, 243)">Mobil-Parkir-Sopir-BBM-Konsumsi Supir</div>
+                </center>-->
+              </table>
+              <br />
+              <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <div class="btn btn-light rounded-3" style="width: 100%">
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th><strong>Durasi</strong></th>
+                            <th><strong>Harga</strong></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>1 jam</td>
+                            <td>Rp {{ mobil[5] }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% if mobil[6] > 0 %}
+              <div id="pesan">
+                <center>
+                    <a href="/login"><button class="btn text-white" style="background-color: rgb(118, 22, 243)">Booking Mobil</button></a>
+                </center>
+              </div>
+              {% else %}
+              <div id="pesan">
+                <center>
+                  <a href="#"><button class="btn text-white" style="background-color: rgb(118, 22, 243)">HABIS</button></a>
+                </center>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </section>
+</div>
+{% endfor %} {% endblock %}

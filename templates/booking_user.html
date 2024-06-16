@@ -1,0 +1,52 @@
+{% extends "navuser.html" %} {% block title %} Booking {% endblock %} {% block content %}
+<section class="bg-image" style="background-color: rgb(129, 86, 255); height: 100%">
+  <div class="mask d-flex align-items-center h-100" style="display: flex">
+    <div class="container h-100" style="padding-top: 4%; padding-bottom: 4%">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-5">Booking Mobil</h2>
+              <form method="POST" action="{{ url_for('cobasewa1')}}">
+                <div class="form-outline mb-4">
+                  <label for="nik" class="form-label">NIK</label>
+                  <input type="number" class="form-control" id="nik" name="nik" {% if 'username' in session %} value="{{ session['nik'] }}"aria-readonly="{% endif %} " readonly/>
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="nama_mobil">Jenis Mobil</label>
+                  <select class="form-select form-select-lg" name="nama_mobil" id="nama_mobil">
+                    {% for mobil in mobil_list %}
+                    <option value="{{ mobil[2] }}">{{ mobil[2] }}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="tanggal_pickup">Tanggal Pickup</label>
+                  <input type="date" id="tanggal_pickup" name="tanggal_pickup" class="form-control form-control-lg" />
+                </div>
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="jam_pickup">Jam Pickup</label>
+                  <input type="time" id="jam_pickup" name="jam_pickup" class="form-control form-control-lg" />
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="tanggal_dropoff">Tanggal Dropoff</label>
+                  <input type="date" name="tanggal_dropoff" id="tanggal_dropoff" class="form-control form-control-lg" />
+                </div>
+
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="jam_dropoff">Jam Dropoff</label>
+                  <input type="time" name="jam_dropoff" id="jam_dropoff" class="form-control form-control-lg" />
+                </div>
+                <center>
+                  <button class="btn btn-primary btn-lg" style="width: 150px" type="submit">Booking</button>
+                </center>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
