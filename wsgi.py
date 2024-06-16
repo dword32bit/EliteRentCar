@@ -140,69 +140,6 @@ def login():
             flash("Username / password salah!")
     return render_template('new/login.html')
 
-
-# @app.route('/booking', methods=['GET', 'POST'])
-# def sewa1():
-#     if request.method == 'POST':
-#         jenis_mobil = request.form['nama_mobil']
-#         tanggal_pickup = request.form['tanggal_pickup']
-#         jam_pickup = request.form['jam_pickup']
-#         tanggal_dropoff = request.form['tanggal_dropoff']
-#         jam_dropoff = request.form['jam_dropoff']
-
-#         try:
-#             # Ambil username pengguna dari sesi
-#             username = session['username']
-
-#             # Ambil nama dari tabel biodata
-#             cursor = conn.cursor()
-#             query = "SELECT biodata.nama_awal FROM accounts INNER JOIN biodata ON accounts.nik = biodata.nik WHERE accounts.username = %s"
-#             cursor.execute(query, (username,))
-#             nama_pelanggan = cursor.fetchone()[0]
-
-#             cursor = conn.cursor()
-#             query = "SELECT harga_sewa_per_jam FROM car WHERE nama_mobil = %s"
-#             cursor.execute(query, (jenis_mobil,))
-#             harga_sewa_per_jam = cursor.fetchone()[0]
-
-#             pickup_datetime = datetime.strptime(
-#                 tanggal_pickup + " " + jam_pickup, '%Y-%m-%d %H:%M')
-#             dropoff_datetime = datetime.strptime(
-#                 tanggal_dropoff + " " + jam_dropoff, '%Y-%m-%d %H:%M')
-#             selisih_waktu = dropoff_datetime - pickup_datetime
-#             selisih_jam = selisih_waktu.total_seconds() / 3600
-
-#             total_biaya = 0
-#             if selisih_jam <= 24:
-#                 total_biaya = harga_sewa_per_jam * selisih_jam
-#             else:
-#                 harga_per_hari = 24 * harga_sewa_per_jam
-#                 total_biaya += harga_per_hari
-#                 jumlah_hari = selisih_waktu.days
-#                 total_biaya += harga_per_hari * (jumlah_hari - 1)
-#                 sisa_jam = selisih_jam % 24
-#                 total_biaya += harga_sewa_per_jam * sisa_jam
-
-#             # Simpan data ke database
-#             cursor = conn.cursor()
-#             cursor.execute("INSERT INTO pesan (nama_pelanggan, jenis_mobil, tanggal_pickup, jam_pickup, tanggal_dropoff, jam_dropoff, total_biaya, harga_sewa_per_jam) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-#                            (nama_pelanggan, jenis_mobil, tanggal_pickup, jam_pickup, tanggal_dropoff, jam_dropoff, total_biaya, harga_sewa_per_jam))
-#             conn.commit()
-
-#             return redirect('/hasilbooking?jenis_mobil={}&tanggal_pickup={}&jam_pickup={}&tanggal_dropoff={}&jam_dropoff={}&harga_sewa_per_jam={}&total_biaya={}'.format(
-#                 jenis_mobil, tanggal_pickup, jam_pickup, tanggal_dropoff, jam_dropoff, harga_sewa_per_jam, total_biaya))
-#         except mysql.connector.Error as e:
-#             print(e)
-#         finally:
-#             cursor.close()
-
-#     cursor = conn.cursor()
-#     cursor.execute("SELECT * FROM car")
-#     mobil_list = cursor.fetchall()
-#     cursor.close()
-#     return render_template('booking.html', mobil_list=mobil_list)
-
-
 @app.route('/reset/', methods=['GET', 'POST'])
 def reset():
     if request.method == 'POST':
@@ -305,32 +242,6 @@ def login_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-# Halaman login admin
-
-
-#@app.route('/admin_login', methods=['GET', 'POST'])
-#def admin_login():
-#    if 'admin' in session:
-#        return redirect('/admin')
-#    error = None
-#    if request.method == 'POST':
-#        username = request.form['username']
-#        password = request.form['password']
-#        # Query untuk mencari admin berdasarkan username dan password
-#        cursor = conn.cursor()
-#        cursor.execute(
-#            "SELECT * FROM admin WHERE username = %s AND password = %s", (username, password))
-#        admin = cursor.fetchone()
-#        cursor.close()
-#        if admin:
-#            # Simpan admin yang berhasil login dalam session
-#            session['admin'] = admin
-#            return redirect('/admin')
-#        else:
-#            error = 'Username atau password salah'
-#    return render_template('admin_login.html', error=error)
-
-
 @app.route('/login/admin', methods=['GET', 'POST'])
 def login_admin():
     if 'admin' in session:
@@ -391,12 +302,6 @@ def admin():
     cursor.execute('SELECT COUNT(*) FROM car')
     mobil_count = cursor.fetchone()[0]
     cursor.close()
-    # Ambil jumlah mobil dari database
-    # cursor = conn.cursor()
-    # cursor.execute('SELECT SUM(total_biaya) FROM cobapesanan')
-    # sewa_count = cursor.fetchone()[0]
-    # cursor.close()
-    # Total Pendapatan
     cursor = conn.cursor()
     cursor.execute('SELECT SUM(total_biaya) FROM cobapesanan')
     pendapatan_count = cursor.fetchone()[0]
@@ -449,45 +354,7 @@ def hapus_pengguna(username):
     conn.commit()
     return redirect('/pengguna')
 
-
-#@app.route('/ubah_pengguna/<username>', methods=['GET', 'POST'])
-#@login_required
-#def ubah_pengguna(username):
-#    if request.method == 'POST':
-#        # Ambil data dari form
-#        username = request.form['username']
-#        email = request.form['email']
-#        nama_awal = request.form['nama_awal']
-#        nama_akhir = request.form['nama_akhir']
-#        dusun = request.form['dusun']
-#        kelurahan = request.form['kelurahan']
-#        kecamatan = request.files['kecamatan']
-#        kabupaten = request.files['kabupaten']
-#        provinsi = request.files['provinsi']
-
-#        # Ambil data pengguna dari database berdasarkan NIK
-#        cursor.execute('SELECT * FROM accounts WHERE username = %s', (username,))
-#        pengguna = cursor.fetchone()
-
-        # Update data pengguna ke database
-#        cursor.execute("UPDATE biodata SET username = %s, email = %s, nama_awal = %s, nama_akhir = %s, dusun = %s, kelurahan = %s, kabupaten = %s, kecamatan = %s, provinsi = %s",
-#                       (username, email, nama_awal, nama_akhir, dusun, kelurahan, kecamatan, kabupaten, provinsi,))
-#        conn.commit()
-#        return redirect('/pengguna')
-#    else:
-#        cursor.execute("""
-#            SELECT accounts.username, accounts.email, biodata.nama_awal, biodata.nama_akhir, biodata.dusun, biodata.kelurahan, biodata.kecamatan, biodata.kabupaten, biodata.provinsi
-#            FROM accounts
-#            INNER JOIN biodata ON accounts.nik = biodata.nik
-#        """)
-#        pengguna = cursor.fetchone()
-
-#        return render_template('ubah_pengguna.html', pengguna=pengguna)
-
-
 # Ubah mobil
-
-
 @app.route('/ubah_mobil/<int:id>', methods=['GET', 'POST'])
 @login_required
 def ubah_mobil(id):
@@ -567,53 +434,6 @@ def sampah():
     cursor.close()
     return render_template('sampah.html', booking_list=booking_list)
 
-# @app.route('/sewa', methods=['GET', 'POST'])
-# def sewa_user():
-#     if request.method == 'POST':
-#         jenis_mobil = request.form['nama_mobil']
-#         tanggal_pickup = request.form['tanggal_pickup']
-#         jam_pickup = request.form['jam_pickup']
-#         tanggal_dropoff = request.form['tanggal_dropoff']
-#         jam_dropoff = request.form['jam_dropoff']
-
-#         try:
-#             cursor = conn.cursor()
-#             query = "SELECT harga_sewa_per_jam FROM car WHERE nama_mobil = %s"
-#             cursor.execute(query, (jenis_mobil,))
-#             harga_sewa_per_jam = cursor.fetchone()[0]
-
-#             pickup_datetime = datetime.strptime(
-#                 tanggal_pickup + " " + jam_pickup, '%Y-%m-%d %H:%M')
-#             dropoff_datetime = datetime.strptime(
-#                 tanggal_dropoff + " " + jam_dropoff, '%Y-%m-%d %H:%M')
-#             selisih_waktu = dropoff_datetime - pickup_datetime
-#             selisih_jam = selisih_waktu.total_seconds() / 3600
-
-#             total_biaya = 0
-#             if selisih_jam <= 24:
-#                 total_biaya = harga_sewa_per_jam * selisih_jam
-#             else:
-#                 harga_per_hari = 24 * harga_sewa_per_jam
-#                 total_biaya += harga_per_hari
-#                 jumlah_hari = selisih_waktu.days
-#                 total_biaya += harga_per_hari * (jumlah_hari - 1)
-#                 sisa_jam = selisih_jam % 24
-#                 total_biaya += harga_sewa_per_jam * sisa_jam
-
-#             return redirect('/hasilbooking?jenis_mobil={}&tanggal_pickup={}&jam_pickup={}&tanggal_dropoff={}&jam_dropoff={}&harga_sewa_per_jam={}&total_biaya={}'.format(
-#                 jenis_mobil, tanggal_pickup, jam_pickup, tanggal_dropoff, jam_dropoff, harga_sewa_per_jam, total_biaya))
-#         except err as e:
-#             print(e)
-#         finally:
-#             cursor.close()
-
-#     cursor = conn.cursor()
-#     cursor.execute("SELECT * FROM car")
-#     mobil_list = cursor.fetchall()
-#     cursor.close()
-#     return render_template('booking_user.html', mobil_list=mobil_list)
-
-
 @app.route('/hasilbooking')
 def hasil1():
     jenis_mobil = request.args.get('jenis_mobil')
@@ -656,21 +476,6 @@ def pesanan():
     pesanan_list = cursor.fetchall()
 
     return render_template('pesanan.html', pesanan_list=pesanan_list)
-
-
-# @app.route('/riwayat_login')
-# def riwayat_login():
-#     cur = conn.cursor()
-#     cur.execute("""SELECT accounts.username, biodata.nama_awal, car.harga_sewa_per_jam
-#                 FROM user
-#                 JOIN accounts ON user.username = accounts.username
-#                 JOIN biodata ON accounts.username = biodata.nik
-#                 JOIN pesan ON user.pesan_id = pesan.id
-#                 JOIN car ON user.Plat_nomor = car.Plat_mobil""")
-#     data = cur.fetchall()
-#     cur.close()
-
-#     return render_template('riwayat_login.html', data=data)
 
 
 # coba
@@ -778,51 +583,6 @@ def sewa1():
     cursor.close()
     return render_template('booking.html', mobil_list=mobil_list)
 
-
-# @app.route('/cobasewa', methods=['GET', 'POST'])
-# def cobasewa():
-#     if request.method == 'POST':
-#         jenis_mobil = request.form['nama_mobil']
-#         tanggal_pickup = request.form['tanggal_pickup']
-#         jam_pickup = request.form['jam_pickup']
-#         tanggal_dropoff = request.form['tanggal_dropoff']
-#         jam_dropoff = request.form['jam_dropoff']
-#         try:
-#             cursor = conn.cursor()
-#             query = "SELECT harga_sewa_per_jam FROM car WHERE nama_mobil = %s"
-#             cursor.execute(query, (jenis_mobil,))
-#             harga_sewa_per_jam = cursor.fetchone()[0]
-#             pickup_datetime = datetime.strptime(tanggal_pickup + " " + jam_pickup, '%Y-%m-%d %H:%M')
-#             dropoff_datetime = datetime.strptime(tanggal_dropoff + " " + jam_dropoff, '%Y-%m-%d %H:%M')
-#             selisih_waktu = dropoff_datetime - pickup_datetime
-#             selisih_jam = selisih_waktu.total_seconds() / 3600
-#             total_biaya = 0
-#             if selisih_jam <= 24:
-#                 total_biaya = harga_sewa_per_jam * selisih_jam
-#             else:
-#                 harga_per_hari = 24 * harga_sewa_per_jam
-#                 total_biaya += harga_per_hari
-#                 jumlah_hari = selisih_waktu.days
-#                 total_biaya += harga_per_hari * (jumlah_hari - 1)
-#                 sisa_jam = selisih_jam % 24
-#                 total_biaya += harga_sewa_per_jam * sisa_jam
-#             # Save data to the database
-#             insert_query = "INSERT INTO cobapesanan (jenis_mobil, tanggal_pickup, jam_pickup, tanggal_dropoff, jam_dropoff, harga_sewa_per_jam, total_biaya) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-#             cursor.execute(insert_query, (jenis_mobil, tanggal_pickup, jam_pickup, tanggal_dropoff, jam_dropoff, harga_sewa_per_jam, total_biaya))
-#             conn.commit()
-#             return redirect('/hasilbooking?jenis_mobil={}&tanggal_pickup={}&jam_pickup={}&tanggal_dropoff={}&jam_dropoff={}&harga_sewa_per_jam={}&total_biaya={}'.format(
-#                 jenis_mobil, tanggal_pickup, jam_pickup, tanggal_dropoff, jam_dropoff, harga_sewa_per_jam, total_biaya))
-#         except conn.Error as err:
-#             print(err)
-#         finally:
-#             cursor.close()
-#     cursor = conn.cursor()
-#     cursor.execute("SELECT * FROM car")
-#     mobil_list = cursor.fetchall()
-#     cursor.close()
-#     return render_template('cobasewa.html', mobil_list=mobil_list)
-
-
 @app.route('/cobasewa1', methods=['GET', 'POST'])
 def cobasewa1():
     if request.method == 'POST':
@@ -833,11 +593,6 @@ def cobasewa1():
         tanggal_dropoff = request.form['tanggal_dropoff']
         jam_dropoff = request.form['jam_dropoff']
         try:
-            # username = session['username']
-            # cursor = conn.cursor()
-            # query = "SELECT biodata.nik FROM accounts INNER JOIN biodata ON accounts.nik = biodata.nik WHERE accounts.username = %s"
-            # cursor.execute(query, (username,))
-
             cursor = conn.cursor()
             query = "SELECT harga_sewa_per_jam FROM car WHERE nama_mobil = %s"
             cursor.execute(query, (jenis_mobil,))
