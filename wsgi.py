@@ -27,30 +27,17 @@ if conn.is_connected():
     print('open connection succesfull')
 
 # Fungsi untuk memeriksa ekstensi file yang diunggah
-
-
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-# Azkal
-
 
 # Home
 @app.route('/')
 def index():
     return render_template('new/index.html', active_page='index')
 
-
 @app.route('/about')
 def about():
     return render_template('new/about.html', active_page='index')
-
-
-# Old code
-@app.route('/tampilan_user')
-def tmpuser():
-    return render_template('new/index.html', active_page='index')
-
 
 @app.route('/biodata/', methods=['GET', 'POST'])
 def tempat():
@@ -83,7 +70,6 @@ def tempat():
             return (render_template('biodata.html'))
         return redirect(url_for('pendaftaran'))
 
-
 @app.route('/pendaftaran/', methods=['GET', 'POST'])
 def pendaftaran():
     if request.method == 'POST':
@@ -106,7 +92,6 @@ def pendaftaran():
             flash('Data NIK belum diisi di halaman biodata', 'danger')
     return (render_template('new/register.html'))
 
-
 def user_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
@@ -114,7 +99,6 @@ def user_required(f):
             return redirect('/booking')
         return f(*args, **kwargs)
     return decorated_function
-
 
 @app.route('/login/', methods=['GET', 'POST'])
 def login():
@@ -165,9 +149,6 @@ def reset():
         return render_template('new/login.html', success='password telah diubah')
 
     return render_template('new/reset_password.html')
-
-# Azkal
-
 
 # car
 @app.route('/explore/', methods=['GET', 'POST'])
@@ -231,8 +212,6 @@ def car():
     tipe_mobil_list = cursor.fetchall()
     return render_template('new/explore.html', mobil_list=mobil_list, tipe_mobil_list=tipe_mobil_list, active_page='car', mobil_list_user=mobil_list_user)
 
-
-# Coba Fery
 # Decorator untuk memeriksa apakah admin sudah login atau belum
 def login_required(f):
     @wraps(f)
@@ -265,8 +244,6 @@ def login_admin():
     return render_template('admin/login.html', error=error)
 
 # Logout admin
-
-
 @app.route('/logout')
 def logout():
     # Hapus admin dari session
@@ -274,8 +251,6 @@ def logout():
     return redirect('/')
 
 # Halaman kontrol admin
-
-
 @app.route('/admin')
 @login_required
 def admin():
@@ -308,7 +283,6 @@ def admin():
     cursor.close()
     return render_template('admin.html', mobil_list=mobil_list, user_count=user_count, pesanan_count=pesanan_count, mobil_count=mobil_count, tersedia=tersedia, tidak_tersedia=tidak_tersedia, pendapatan_count=pendapatan_count)
 
-
 # Tampilan form tambah mobil
 @app.route('/tambah_mobil', methods=['GET', 'POST'])
 @login_required
@@ -336,8 +310,6 @@ def tambah_mobil():
         return render_template('tambah_mobil.html')
 
 # Hapus mobil
-
-
 @app.route('/hapus_mobil/<int:id>', methods=['POST'])
 @login_required
 def hapus_mobil(id):
@@ -391,32 +363,9 @@ def ubah_mobil(id):
         mobil = cursor.fetchone()
         return render_template('ubah_mobil.html', mobil=mobil)
 
-
 @app.route('/explore/')
 def user():
     return render_template('new/explore.html')
-
-
-@app.route('/mobil/')
-def mobil():
-    # Ambil parameter filter tipe mobil dan pengurutan harga
-    cursor = conn.cursor()
-    filter_tipe = request.args.get('filter_tipe')
-    sort_harga = request.args.get('sort_harga')
-    # Buat query SQL dengan filter dan pengurutan
-    query = "SELECT * FROM car"
-    if filter_tipe:
-        query += f" WHERE Tipe_Mobil = '{filter_tipe}'"
-    if sort_harga:
-        query += " ORDER BY Harga_Sewa_Per_jam ASC" if sort_harga == 'asc' else " ORDER BY Harga_Sewa_Per_jam DESC"
-    # Eksekusi query
-    cursor.execute(query)
-    mobil_list = cursor.fetchall()
-    # Ambil daftar tipe mobil untuk filter
-    cursor.execute("SELECT DISTINCT Tipe_Mobil FROM car")
-    tipe_mobil_list = cursor.fetchall()
-    return render_template('mobil.html', mobil_list=mobil_list, tipe_mobil_list=tipe_mobil_list, active_page='car')
-
 
 @app.route('/logout_user')
 def logout_user():
@@ -424,7 +373,6 @@ def logout_user():
     session.pop('password', None)
     session.pop('loggedin', None)
     return redirect(url_for('login'))
-
 
 @app.route('/sampah')
 def sampah():
@@ -446,7 +394,6 @@ def hasil1():
     return render_template('hasilbooking.html', jenis_mobil=jenis_mobil, tanggal_pickup=tanggal_pickup, jam_pickup=jam_pickup,
                            tanggal_dropoff=tanggal_dropoff, jam_dropoff=jam_dropoff, harga_per_jam=harga_sewa_per_jam,
                            total_biaya=total_biaya)
-
 
 @app.route('/buka')
 def buka():
