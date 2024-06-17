@@ -374,14 +374,6 @@ def logout_user():
     session.pop('loggedin', None)
     return redirect(url_for('login'))
 
-@app.route('/sampah')
-def sampah():
-    cursor = conn.cursor
-    cursor.execute("SELECT * FROM pesan")
-    booking_list = cursor.fetchall()
-    cursor.close()
-    return render_template('sampah.html', booking_list=booking_list)
-
 @app.route('/hasilbooking')
 def hasil1():
     jenis_mobil = request.args.get('jenis_mobil')
@@ -395,10 +387,6 @@ def hasil1():
                            tanggal_dropoff=tanggal_dropoff, jam_dropoff=jam_dropoff, harga_per_jam=harga_sewa_per_jam,
                            total_biaya=total_biaya)
 
-@app.route('/buka')
-def buka():
-    return render_template('booking.html')
-
 
 @app.route('/pengguna')
 def pengguna():
@@ -411,7 +399,6 @@ def pengguna():
 
     return render_template('pengguna.html', pengguna_list=pengguna_list)
 
-
 @app.route('/pesanan')
 def pesanan():
     cursor.execute("""
@@ -423,159 +410,6 @@ def pesanan():
     pesanan_list = cursor.fetchall()
 
     return render_template('pesanan.html', pesanan_list=pesanan_list)
-
-
-# coba
-@app.route('/pesan')
-def pesan():
-    try:
-        cursor = conn.cursor()
-        query = "SELECT * FROM cobapesanan"
-        cursor.execute(query)
-        pesan_list = cursor.fetchall()
-        cursor.close()
-        return render_template('pesan.html', pesan_list=pesan_list)
-    except conn.Error as err:
-        print(err)
-
-
-@app.route('/sewa', methods=['GET', 'POST'])
-def sewa():
-    if request.method == 'POST':
-        jenis_mobil = request.form['nama_mobil']
-        tanggal_pickup = request.form['tanggal_pickup']
-        jam_pickup = request.form['jam_pickup']
-        tanggal_dropoff = request.form['tanggal_dropoff']
-        jam_dropoff = request.form['jam_dropoff']
-        try:
-            cursor = conn.cursor()
-            query = "SELECT harga_sewa_per_jam FROM car WHERE nama_mobil = %s"
-            cursor.execute(query, (jenis_mobil,))
-            harga_sewa_per_jam = cursor.fetchone()[0]
-            pickup_datetime = datetime.strptime(
-                tanggal_pickup + " " + jam_pickup, '%Y-%m-%d %H:%M')
-            dropoff_datetime = datetime.strptime(
-                tanggal_dropoff + " " + jam_dropoff, '%Y-%m-%d %H:%M')
-            selisih_waktu = dropoff_datetime - pickup_datetime
-            selisih_jam = selisih_waktu.total_seconds() / 3600
-            total_biaya = 0
-            if selisih_jam <= 24:
-                total_biaya = harga_sewa_per_jam * selisih_jam
-            else:
-                harga_per_hari = 24 * harga_sewa_per_jam
-                total_biaya += harga_per_hari
-                jumlah_hari = selisih_waktu.days
-                total_biaya += harga_per_hari * (jumlah_hari - 1)
-                sisa_jam = selisih_jam % 24
-                total_biaya += harga_sewa_per_jam * sisa_jam
-            # Simpan data ke tabel "pesanan"
-            insert_query = "INSERT INTO pesanan (jenis_mobil, tanggal_pickup, jam_pickup, tanggal_dropoff, jam_dropoff, harga_per_jam, total_biaya) VALUES (%s, %s, %s, %s, %s, %s, %s)"
-            cursor.execute(insert_query, (jenis_mobil, tanggal_pickup, jam_pickup,
-                           tanggal_dropoff, jam_dropoff, harga_sewa_per_jam, total_biaya))
-            conn.commit()
-            return redirect('/hasil?jenis_mobil={}&tanggal_pickup={}&jam_pickup={}&tanggal_dropoff={}&jam_dropoff={}&harga_sewa_per_jam={}&total_biaya={}'.format(
-                jenis_mobil, tanggal_pickup, jam_pickup, tanggal_dropoff, jam_dropoff, harga_sewa_per_jam, total_biaya))
-        except mysql.connector.Error as err:
-            print(err)
-        finally:
-            cursor.close()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM car")
-    mobil_list = cursor.fetchall()
-    cursor.close()
-    return render_template('sewa.html', mobil_list=mobil_list)
-
-
-@app.route('/booking', methods=['GET', 'POST'])
-def sewa1():
-    if request.method == 'POST':
-        jenis_mobil = request.form['nama_mobil']
-        tanggal_pickup = request.form['tanggal_pickup']
-        jam_pickup = request.form['jam_pickup']
-        tanggal_dropoff = request.form['tanggal_dropoff']
-        jam_dropoff = request.form['jam_dropoff']
-
-        try:
-            cursor = conn.cursor()
-            query = "SELECT harga_sewa_per_jam FROM car WHERE nama_mobil = %s"
-            cursor.execute(query, (jenis_mobil,))
-            harga_sewa_per_jam = cursor.fetchone()[0]
-
-            pickup_datetime = datetime.strptime(
-                tanggal_pickup + " " + jam_pickup, '%Y-%m-%d %H:%M')
-            dropoff_datetime = datetime.strptime(
-                tanggal_dropoff + " " + jam_dropoff, '%Y-%m-%d %H:%M')
-            selisih_waktu = dropoff_datetime - pickup_datetime
-            selisih_jam = selisih_waktu.total_seconds() / 3600
-
-            total_biaya = 0
-            if selisih_jam <= 24:
-                total_biaya = harga_sewa_per_jam * selisih_jam
-            else:
-                harga_per_hari = 24 * harga_sewa_per_jam
-                total_biaya += harga_per_hari
-                jumlah_hari = selisih_waktu.days
-                total_biaya += harga_per_hari * (jumlah_hari - 1)
-                sisa_jam = selisih_jam % 24
-                total_biaya += harga_sewa_per_jam * sisa_jam
-
-            return redirect('/hasilbooking?jenis_mobil={}&tanggal_pickup={}&jam_pickup={}&tanggal_dropoff={}&jam_dropoff={}&harga_sewa_per_jam={}&total_biaya={}'.format(
-                jenis_mobil, tanggal_pickup, jam_pickup, tanggal_dropoff, jam_dropoff, harga_sewa_per_jam, total_biaya))
-        finally:
-            cursor.close()
-
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM car")
-    mobil_list = cursor.fetchall()
-    cursor.close()
-    return render_template('booking.html', mobil_list=mobil_list)
-
-@app.route('/cobasewa1', methods=['GET', 'POST'])
-def cobasewa1():
-    if request.method == 'POST':
-        nik = request.form['nik']
-        jenis_mobil = request.form['nama_mobil']
-        tanggal_pickup = request.form['tanggal_pickup']
-        jam_pickup = request.form['jam_pickup']
-        tanggal_dropoff = request.form['tanggal_dropoff']
-        jam_dropoff = request.form['jam_dropoff']
-        try:
-            cursor = conn.cursor()
-            query = "SELECT harga_sewa_per_jam FROM car WHERE nama_mobil = %s"
-            cursor.execute(query, (jenis_mobil,))
-            harga_sewa_per_jam = cursor.fetchone()[0]
-            pickup_datetime = datetime.strptime(
-                tanggal_pickup + " " + jam_pickup, '%Y-%m-%d %H:%M')
-            dropoff_datetime = datetime.strptime(
-                tanggal_dropoff + " " + jam_dropoff, '%Y-%m-%d %H:%M')
-            selisih_waktu = dropoff_datetime - pickup_datetime
-            selisih_jam = selisih_waktu.total_seconds() / 3600
-            total_biaya = 0
-            if selisih_jam <= 24:
-                total_biaya = harga_sewa_per_jam * selisih_jam
-            else:
-                harga_per_hari = 24 * harga_sewa_per_jam
-                total_biaya += harga_per_hari
-                jumlah_hari = selisih_waktu.days
-                total_biaya += harga_per_hari * (jumlah_hari - 1)
-                sisa_jam = selisih_jam % 24
-                total_biaya += harga_sewa_per_jam * sisa_jam
-            # Save data to the database
-            insert_query = "INSERT INTO cobapesanan (nik, jenis_mobil, tanggal_pickup, jam_pickup, tanggal_dropoff, jam_dropoff, harga_sewa_per_jam, total_biaya) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
-            cursor.execute(insert_query, (nik, jenis_mobil, tanggal_pickup, jam_pickup,
-                           tanggal_dropoff, jam_dropoff, harga_sewa_per_jam, total_biaya))
-            conn.commit()
-            return redirect('/hasilbooking?jenis_mobil={}&tanggal_pickup={}&jam_pickup={}&tanggal_dropoff={}&jam_dropoff={}&harga_sewa_per_jam={}&total_biaya={}'.format(
-                jenis_mobil, tanggal_pickup, jam_pickup, tanggal_dropoff, jam_dropoff, harga_sewa_per_jam, total_biaya))
-        except conn.Error as err:
-            print(err)
-        finally:
-            cursor.close()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM car")
-    mobil_list = cursor.fetchall()
-    cursor.close()
-    return render_template('booking_user.html', mobil_list=mobil_list)
 
 
 if __name__ == '__main__':
