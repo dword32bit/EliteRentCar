@@ -1,0 +1,446 @@
+{% extends "base.html" %} {% block title %} Halaman Utama {% endblock %} {% block content %}
+<a href="#" class="ignielToTop"></a>
+<br />
+<div style="text-align: center" class="container">
+  <div class="lc-block mb-3">
+    <div editable="rich">
+      <div class="ml11 w-bold display-3">
+        <span class="text-wrapper">
+          <span class="line line1"></span>
+          <span class="letters">Timbang Mlaku Transportation</span>
+        </span>
+      </div>
+    </div>
+    <div class="lc-block mb-5">
+      <div id="banner">
+        <p class="rfs-8 ml12">Solusi Urusan Transportasi Jogja</p>
+      </div>
+    </div>
+    <p style="font-size: 20px">Semua urusan transportasi mulai dari liburan, perjalanan bisnis, dan acara lainnya di Jogja serahkan saja kepada Timbang Mlaku Transport, Penyedia Layanan Jasa Sewa Mobil Terbaik di Jogja.</p>
+    <div class="body">
+      <div class="containera" id="index">
+        <div class="box box0">
+          <h2>Armada Banyak</h2>
+          <p>Sebagai salah satu penyedia layanan transportasi di Kota Jogja, kami terus menambahkan unit secara rutin dan berbagai jenis armada sehingga bisa memenuhi kebutuhan pelanggan yang berbeda-beda.</p>
+        </div>
+        <div class="box box1">
+          <h2>Driver Ramah</h2>
+          <p>Driver kami merupakan driver yang bukan hanya berpengalaman dan profesional. Lebih dari itu driver kami juga ramah terhadap pelanggan, sehingga anda akan merasa nyaman dalam melakukan perjalanan.</p>
+        </div>
+        <div class="box box2">
+          <h2>Harga Murah</h2>
+          <p>Dibandingkan kompetitor lain, Hello World Transport hadir dengan harga yag relatif lebih murah. Memberikan harga terjangkau sebagai bentuk komitmen kami untuk bisa memenuhi semua kebutuhan pelanggan.</p>
+        </div>
+        <div class="box box3">
+          <h2>Antar Jemput Gratis</h2>
+          <p>Untuk kemudahan perjalanan Anda, kami menghadirkan layanan antar jemput gratis dari beberapa drop point di Jogja. Layanan ini sudah include ketika Anda melakukan pemesanan armada dengan driver dan BBM.</p>
+        </div>
+      </div>
+    </div>
+    <br />
+    <a href="/booking"><button class="button">Booking Mobil Sekarang</button></a>
+  </div>
+  <section id="car" class="container my-5 pb-5 bg-light text-black rounded-4">
+    <div class="container" id="foto">
+      <center>
+        <h1 style="padding-bottom: 2%; padding-top: 2%">Toyota Avanza</h1>
+      </center>
+      <hr />
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <img src="{{ url_for('static',filename='img/gambar1.png')}}" alt="mobil" width="400px" style="padding-bottom: 4rem" />
+            <h6>Fasilitas:</h6>
+            <table cellpadding="6" cellspacing="2" style="padding-left: 50px; margin-left: 0px">
+              <th>
+                <tr>
+                  <th>
+                    <i class="bx bx-chair"> 7 seat</i>
+                  </th>
+                  <th style="padding-left: 80px">
+                    <i class="icofont-music"> Audio</i>
+                  </th>
+                </tr>
+                <tr style="margin: left 50px">
+                  <th>
+                    <i class="bx bxs-radio"> Radio</i>
+                  </th>
+                  <th style="padding-left: 80px">
+                    <i class="icofont-snow-alt"> AC</i>
+                  </th>
+                </tr>
+              </th>
+            </table>
+          </div>
+          <div class="col-7" id="info">
+            <table>
+              <div id="termasuk" class="btn text-white rounded-3" style="background-color: rgb(118, 22, 243)">Mobil-Parkir-Sopir-BBM-Konsumsi Supir</div>
+            </table>
+            <center>
+              <div id="harga">
+                <div class="row btn btn-light rounded-3">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="padding-left: 80px; padding-right: 80px"><strong>Durasi</strong></th>
+                        <th style="padding-left: 80px; padding-right: 80px"><strong>Harga (Zona 1)</strong></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>6 jam</td>
+                        <td>Rp 400.000</td>
+                      </tr>
+                      <tr>
+                        <td>4 jam</td>
+                        <td>Rp 300.000</td>
+                      </tr>
+                      <tr>
+                        <td>2 jam</td>
+                        <td>Rp 200.000</td>
+                      </tr>
+                      <tr>
+                        <td>1 jam</td>
+                        <td>Rp 100.000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </center>
+            <div id="pesan">
+              <a href="/booking"><button class="btn text-white" style="background-color: rgb(118, 22, 243)">Booking Mobil</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="asset/bootstrap/js/bootstrap.js"></script>
+  <!--Brio-->
+  <section id="car" class="container my-5 pb-5 bg-light text-black rounded-4">
+    <div class="container" id="foto">
+      <center>
+        <h1 style="padding-bottom: 2%; padding-top: 2%">Honda Brio</h1>
+      </center>
+      <hr />
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <img src="{{ url_for('static',filename='img/brio.png')}}" alt="mobil" width="400px" style="padding-bottom: 4rem" />
+            <h6>Fasilitas:</h6>
+            <table cellpadding="6" cellspacing="2" style="padding-left: 50px; margin-left: 0px">
+              <th>
+                <tr>
+                  <th>
+                    <i class="bx bx-chair"> 5 seat</i>
+                  </th>
+                  <th style="padding-left: 80px">
+                    <i class="icofont-music"> Audio</i>
+                  </th>
+                </tr>
+                <tr style="margin: left 50px">
+                  <th>
+                    <i class="bx bxs-radio"> Radio</i>
+                  </th>
+                  <th style="padding-left: 80px">
+                    <i class="icofont-snow-alt"> AC</i>
+                  </th>
+                </tr>
+              </th>
+            </table>
+          </div>
+          <div class="col-7" id="info">
+            <table>
+              <div id="termasuk" class="btn text-white rounded-3" style="background-color: rgb(118, 22, 243)">Mobil-Parkir-Sopir-BBM-Konsumsi Supir</div>
+            </table>
+            <center>
+              <div id="harga">
+                <div class="row btn btn-light rounded-3">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="padding-left: 80px; padding-right: 80px"><strong>Durasi</strong></th>
+                        <th style="padding-left: 80px; padding-right: 80px"><strong>Harga (Zona 1)</strong></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>6 jam</td>
+                        <td>Rp 300.000</td>
+                      </tr>
+                      <tr>
+                        <td>4 jam</td>
+                        <td>Rp 250.000</td>
+                      </tr>
+                      <tr>
+                        <td>2 jam</td>
+                        <td>Rp 150.000</td>
+                      </tr>
+                      <tr>
+                        <td>1 jam</td>
+                        <td>Rp 100.000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </center>
+            <div id="pesan">
+              <a href="/booking"><button class="btn text-white" style="background-color: rgb(118, 22, 243)">Booking Mobil</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="asset/bootstrap/js/bootstrap.js"></script>
+  <!--Calya-->
+  <section id="car" class="container my-5 pb-5 bg-light text-black rounded-4">
+    <div class="container" id="foto">
+      <center>
+        <h1 style="padding-bottom: 2%; padding-top: 2%">Toyota Calya</h1>
+      </center>
+      <hr />
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <img src="{{ url_for('static',filename='img/calyya.png')}}" alt="mobil" width="400px" style="padding-bottom: 4rem" />
+            <h6>Fasilitas:</h6>
+            <table cellpadding="6" cellspacing="2" style="padding-left: 50px; margin-left: 0px">
+              <th>
+                <tr>
+                  <th>
+                    <i class="bx bx-chair"> 7 seat</i>
+                  </th>
+                  <th style="padding-left: 80px">
+                    <i class="icofont-music"> Audio</i>
+                  </th>
+                </tr>
+                <tr style="margin: left 50px">
+                  <th>
+                    <i class="bx bxs-radio"> Radio</i>
+                  </th>
+                  <th style="padding-left: 80px">
+                    <i class="icofont-snow-alt"> AC</i>
+                  </th>
+                </tr>
+              </th>
+            </table>
+          </div>
+          <div class="col-7" id="info">
+            <table>
+              <div id="termasuk" class="btn text-white rounded-3" style="background-color: rgb(118, 22, 243)">Mobil-Parkir-Sopir-BBM-Konsumsi Supir</div>
+            </table>
+            <center>
+              <div id="harga">
+                <div class="row btn btn-light rounded-3">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="padding-left: 80px; padding-right: 80px"><strong>Durasi</strong></th>
+                        <th style="padding-left: 80px; padding-right: 80px"><strong>Harga (Zona 1)</strong></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>6 jam</td>
+                        <td>Rp 450.000</td>
+                      </tr>
+                      <tr>
+                        <td>4 jam</td>
+                        <td>Rp 350.000</td>
+                      </tr>
+                      <tr>
+                        <td>2 jam</td>
+                        <td>Rp 250.000</td>
+                      </tr>
+                      <tr>
+                        <td>1 jam</td>
+                        <td>Rp 150.000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </center>
+            <div id="pesan">
+              <a href="/booking"><button class="btn text-white" style="background-color: rgb(118, 22, 243)">Booking Mobil</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="asset/bootstrap/js/bootstrap.js"></script>
+  <!--innova-->
+  <section id="car" class="container my-5 pb-5 bg-light text-black rounded-4">
+    <div class="container" id="foto">
+      <center>
+        <h1 style="padding-bottom: 2%; padding-top: 2%">Toyota Innova</h1>
+      </center>
+      <hr />
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <img src="{{ url_for('static',filename='img/inova.png')}}" alt="mobil" width="400px" style="padding-bottom: 4rem" />
+            <h6>Fasilitas:</h6>
+            <table cellpadding="6" cellspacing="2" style="padding-left: 50px; margin-left: 0px">
+              <th>
+                <tr>
+                  <th>
+                    <i class="bx bx-chair"> 7 seat</i>
+                  </th>
+                  <th style="padding-left: 80px">
+                    <i class="icofont-music"> Audio</i>
+                  </th>
+                </tr>
+                <tr style="margin: left 50px">
+                  <th>
+                    <i class="bx bxs-radio"> Radio</i>
+                  </th>
+                  <th style="padding-left: 80px">
+                    <i class="icofont-snow-alt"> AC</i>
+                  </th>
+                </tr>
+              </th>
+            </table>
+          </div>
+          <div class="col-7" id="info">
+            <table>
+              <div id="termasuk" class="btn text-white rounded-3" style="background-color: rgb(118, 22, 243)">Mobil-Parkir-Sopir-BBM-Konsumsi Supir</div>
+            </table>
+            <center>
+              <div id="harga">
+                <div class="row btn btn-light rounded-3">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="padding-left: 80px; padding-right: 80px"><strong>Durasi</strong></th>
+                        <th style="padding-left: 80px; padding-right: 80px"><strong>Harga (Zona 1)</strong></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>6 jam</td>
+                        <td>Rp 700.000</td>
+                      </tr>
+                      <tr>
+                        <td>4 jam</td>
+                        <td>Rp 500.000</td>
+                      </tr>
+                      <tr>
+                        <td>2 jam</td>
+                        <td>Rp 350.000</td>
+                      </tr>
+                      <tr>
+                        <td>1 jam</td>
+                        <td>Rp 200.000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </center>
+            <div id="pesan">
+              <a href="/booking"><button class="btn text-white" style="background-color: rgb(118, 22, 243)">Booking Mobil</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="asset/bootstrap/js/bootstrap.js"></script>
+  <!--Hiace-->
+  <section id="car" class="container my-5 pb-5 bg-light text-black rounded-4">
+    <div class="container" id="foto">
+      <center>
+        <h1 style="padding-bottom: 2%; padding-top: 2%">Toyota Hiace</h1>
+      </center>
+      <hr />
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <img src="{{ url_for('static',filename='img/hiace.png')}}" alt="mobil" width="400px" style="padding-bottom: 4rem" />
+            <h6>Fasilitas:</h6>
+            <table cellpadding="6" cellspacing="2" style="padding-left: 50px; margin-left: 0px">
+              <th>
+                <tr>
+                  <th>
+                    <i class="bx bx-chair"> 15 seat</i>
+                  </th>
+                  <th style="padding-left: 80px">
+                    <i class="icofont-music"> Audio</i>
+                  </th>
+                </tr>
+                <tr style="margin: left 50px">
+                  <th>
+                    <i class="bx bxs-radio"> Radio</i>
+                  </th>
+                  <th style="padding-left: 80px">
+                    <i class="icofont-snow-alt"> AC</i>
+                  </th>
+                </tr>
+              </th>
+            </table>
+          </div>
+          <div class="col-7" id="info">
+            <table>
+              <div id="termasuk" class="btn text-white rounded-3" style="background-color: rgb(118, 22, 243)">Mobil-Parkir-Sopir-BBM-Konsumsi Supir</div>
+            </table>
+            <center>
+              <div id="harga">
+                <div class="row btn btn-light rounded-3">
+                  <table class="table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="padding-left: 80px; padding-right: 80px"><strong>Durasi</strong></th>
+                        <th style="padding-left: 80px; padding-right: 80px"><strong>Harga (Zona 1)</strong></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>6 jam</td>
+                        <td>Rp 700.000</td>
+                      </tr>
+                      <tr>
+                        <td>4 jam</td>
+                        <td>Rp 500.000</td>
+                      </tr>
+                      <tr>
+                        <td>2 jam</td>
+                        <td>Rp 350.000</td>
+                      </tr>
+                      <tr>
+                        <td>1 jam</td>
+                        <td>Rp 200.000</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </center>
+            <div id="pesan">
+              <a href="/booking"><button class="btn text-white" style="background-color: rgb(118, 22, 243)">Booking Mobil</button></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="asset/bootstrap/js/bootstrap.js"></script>
+  <div style="text-align: center">
+    <a href="/mobil">
+      <button class="learn-more">
+        <span class="circle" aria-hidden="true">
+          <span class="icon arrow"></span>
+        </span>
+        <span class="button-text">Semua Mobil</span>
+      </button>
+    </a>
+  </div>
+  <br />
+  <script src="{{ url_for('static', filename='js/javascrip.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/script.js')}}"></script>
+  {% endblock %}
+</div>

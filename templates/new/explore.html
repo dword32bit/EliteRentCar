@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elite Rent Car</title>
+
+  <link rel="shortcut icon" href="/static/img/logo.png" type="image/icon">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Open+Sans&display=swap" rel="stylesheet">
+
+  <style>
+    .form-select {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
+      display: block;
+      width: 100%;
+      padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.5;
+      color: #212529;
+      background-color: var(#fff);
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 16px 12px;
+      border: 1px solid #dee2e6;
+      transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+    .form-select-sm {
+      padding-top: 0.25rem;
+      padding-bottom: 0.25rem;
+      padding-left: 0.5rem;
+      padding-right: 4rem;
+      font-size: 0.875rem;
+      border-radius: 8px;
+      outline: none;
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header" data-header>
+    <div class="container">
+      <div class="overlay" data-overlay></div>
+      <a href="#" class="logo">
+        <img src="{{ url_for('static', filename='img/logo.png')}}">
+      </a>
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+          <li><a href="/" class="navbar-link" data-nav-link>Home</a></li>
+          <li><a href="/explore" class="navbar-link" data-nav-link>Explore</a></li>
+          <li><a href="/about" class="navbar-link" data-nav-link>About</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        {% if session['username'] %}
+        <a href="/logout_user" class="btn" aria-labelledby="aria-label-txt">
+          <span id="aria-label-txt">Hi, {{ session['username'] }}</span>
+        </a>
+        {% else %}
+        <a href="/login" class="btn " aria-label="Profile">
+          <span id="aria-label-txt">Login</span>
+        </a>
+        {% endif %}
+        <button class="nav-toggle-btn" data-nav-toggle-btn aria-label="Toggle Menu">
+          <span class="one"></span>
+          <span class="two"></span>
+          <span class="three"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <article>
+      <section class="section featured-car" id="featured-car">
+        <div class="container">
+          <div class="title-wrapper">
+            <h2 class="h2 section-title">Explore</h2>
+            <a href="#" class="featured-car-link">
+              <form action="/explore" method="GET" style="display: flex; gap: 8px;">
+                <select class="form-select form-select-sm" name="filter_tipe">
+                  <option style="color: grey;" value="">Type</option>
+                  {% for tipe_mobil in tipe_mobil_list %}
+                  <option value="{{ tipe_mobil[0] }}"  {% if tipe_mobil[0] == filter_tipe %}selected{% endif %}>{{ tipe_mobil[0] }}</option>
+                  {% endfor %}
+                </select>
+                <select class="form-select form-select-sm" name="sort_harga">
+                  <option style="color: grey;" value="">Price</option>
+                  <option value="asc">Lowest</option>
+                  <option value="desc">Highest</option>
+                </select>
+                <button type="submit" class="btn" style="padding: 0px 12px; width: 100%;">Filter</button>
+              </form>
+            </a>
+          </div>
+
+          {% if get_flashed_messages(category_filter=["add_boking_err"]) %}
+              <div class="alert alert-danger" role="alert">
+                  {{ get_flashed_messages(category_filter=["add_boking_err"])[0] }}
+              </div>
+          {% endif %}
+
+
+          <ul class="featured-car-list">
+            {% for mobil in mobil_list %}
+            <li>
+              <div class="featured-car-card">
+                <figure class="card-banner">
+                  {% if mobil[7] %}
+                  <img src="{{ url_for('static', filename='images/' + mobil[7]) }}" alt="Toyota RAV4 2021" loading="lazy" width="440" height="300" class="w-100">
+                  {% else %}
+                  <span>Gambar tidak tersedia</span>
+                  {% endif %}
+                </figure>
+                <div class="card-content">
+                  <div class="card-title-wrapper">
+                    <h3 class="h3 card-title">{{ mobil[2] }}</h3>
+                    <data class="year" value="2021">{{ mobil[4] }}</data>
+                  </div>
+                  <ul class="card-list">
+                    <li class="card-list-item">
+                      <ion-icon name="people-outline"></ion-icon>
+                      <span class="card-item-text">{{ mobil[1] }}</span>
+                    </li>
+                    <li class="card-list-item">
+                      <ion-icon name="flash-outline"></ion-icon>
+                      <span class="card-item-text">{{ mobil[3] }}</span>
+                    </li>
+                    <li class="card-list-item">
+                      <ion-icon name="speedometer-outline"></ion-icon>
+                      <span class="card-item-text">{{ mobil[8] }}</span>
+                    </li>
+                  </ul>
+                  <div class="card-price-wrapper">
+                    <p class="card-price">
+                      <strong>{{ mobil[5] }} IDR</strong> / hours
+                    </p>
+                    {% if mobil[6] > 0 %}
+                    <button type="button" class="btn btn-primary booking-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" data-mobil="{{ mobil[2] }}">Booking</button>
+                    {% else %}
+                    <div id="pesan">
+                      <center>
+                        <button class="btn" style="background-color: rgb(118, 22, 243)">Full</button>
+                      </center>
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form method="post" action="{{ url_for('sewa1')}}">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" style="text-align: center; width: 100%;" id="modalCarName"></h1>
+            <input type="hidden" name="nama_mobil" id="inputCarName" value="">
+          </div>
+          <div class="modal-body">
+            <div>
+              <div class="input-wrapper">
+                <label for="input-1" class="input-label">Date Pickup</label>
+                <input type="date" name="tanggal_pickup" id="input-1" class="input-field" placeholder="hustt, secret password here.." />
+              </div>
+              <div class="input-wrapper">
+                <label for="input-2" class="input-label">Time Pickup</label>
+                <input type="time" name="jam_pickup" id="input-2" class="input-field" placeholder="hustt, secret password here.." />
+              </div>
+            </div>
+            <div>
+              <div class="input-wrapper">
+                <label for="input-3" class="input-label">Date Dropoff</label>
+                <input type="date" name="tanggal_dropoff" id="input-3" class="input-field" placeholder="hustt, secret password here.." />
+              </div>
+              <div class="input-wrapper">
+                <label for="input-4" class="input-label">Time Dropoff</label>
+                <input type="time" name="jam_dropoff" id="input-4" class="input-field" placeholder="hustt, secret password here.." />
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" style="background-color: transparent; color: black; box-shadow: none;" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn" style="padding: 0 8px;">Booking Now</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="/" class="logo">
+            <img src="/static/img/logo.png" alt="Elite Rent Car"/><span>Elite Rent Car</span>
+          </a>
+          <p class="footer-text">Solusi untuk rental mobil dengan kualitas yang teruji dan terpercaya.</p>
+        </div>
+
+        <ul class="footer-list">
+          <li><p class="footer-list-title">Company</p></li>
+          <li><a href="about" class="footer-link">About</a></li>
+          <li><a href="explore" class="footer-link">Pricing plans</a></li>
+          <li><a href="about" class="footer-link">Our blog</a></li>
+          <li><a href="#" class="footer-link">Contacts</a></li>
+        </ul>
+
+        <ul class="footer-list">
+          <li><p class="footer-list-title">Support</p></li>
+          <li><a href="#" class="footer-link">Help center</a></li>
+          <li><a href="#" class="footer-link">Ask a question</a></li>
+          <li><a href="#" class="footer-link">Privacy policy</a></li>
+          <li><a href="#" class="footer-link">Terms & conditions</a></li>
+        </ul>
+
+        <ul class="footer-list">
+          <li><p class="footer-list-title">Mitra</p></li>
+          <li><a href="https://www.jet.co.id" class="footer-link">J&T</a></li>
+          <li><a href="https://www.jne.co.id" class="footer-link">JNE</a></li>
+          <li><a href="https://www.shopee.com" class="footer-link">Shopee</a></li>
+          <li><a href="https://www.tokopedia.com" class="footer-link">Tokopedia</a></li>
+          <li><a href="https://traveloka.com" class="footer-link">Traveloka</a></li>
+          <li><a href="https://www.x.com" class="footer-link">X</a></li>
+          <li><a href="https://www.aerostreet.co.id" class="footer-link">Aerostreet</a></li>
+          <li><a href="https://www.astra-honda.com" class="footer-link">Ahass</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-bottom">
+        <ul class="social-list">
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-skype"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="mail-outline"></ion-icon>
+            </a>
+          </li>
+        </ul>
+
+        <p class="copyright">&copy; 2024 <a href="#">eliterentcar</a>. All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const modal = document.getElementById('exampleModal');
+      modal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const carName = button.getAttribute('data-mobil');
+        const modalCarName = document.getElementById('modalCarName');
+        const inputCarName = document.getElementById('inputCarName');
+        modalCarName.textContent = carName;
+        inputCarName.value = carName;
+      });
+
+      const bookingButtons = document.querySelectorAll('.booking-btn');
+      bookingButtons.forEach(button => {
+        button.addEventListener('click', function (event) {
+          {% if session['username'] %}
+            // User is logged in, allow booking
+            var modal = new bootstrap.Modal(document.getElementById('exampleModal'), {});
+            modal.show();
+          {% else %}
+            // User is not logged in, redirect to login
+            window.location.href = "{{ url_for('login') }}";
+          {% endif %}
+        });
+      });
+    });
+  </script>
+  <script src="{{url_for('static', filename='js/scripts.js')}}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
